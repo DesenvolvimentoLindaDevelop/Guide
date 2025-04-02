@@ -1,0 +1,1 @@
+export const imagesProject = ["tower1", "tower2", "tower3"]
