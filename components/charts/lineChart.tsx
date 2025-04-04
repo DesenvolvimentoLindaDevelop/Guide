@@ -4,7 +4,16 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Eye } from "lucide-react";
 import { ChartConfig, ChartContainer } from "../ui/chart";
-import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import {
+  Line,
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 interface ChartOverviewProps {
   title: string;
@@ -47,7 +56,12 @@ export default function LineChartOverview({ title }: ChartOverviewProps) {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="desktop" stroke={chartConfig.desktop.color} strokeWidth={2} />
+              <Line
+                type="monotone"
+                dataKey="desktop"
+                stroke={chartConfig.desktop.color}
+                strokeWidth={2}
+              />
             </LineChart>
           </ResponsiveContainer>
         </ChartContainer>

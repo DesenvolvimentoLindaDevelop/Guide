@@ -4,12 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ChevronLeft, Upload, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { database, storage } from "@/lib/firebaseConfig"; 
+import { database, storage } from "@/lib/firebaseConfig";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "react-toastify";
@@ -18,7 +24,6 @@ import { useRouter } from "next/navigation";
 interface Category {
   id: string;
   title: string;
-  
 }
 
 async function addDataToFireStone(data: any) {
@@ -47,10 +52,9 @@ export default function AddTouristSpot() {
     const fetchCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(database, "categories"));
-        const fetchedCategories = querySnapshot.docs.map(doc => ({
+        const fetchedCategories = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           title: doc.data().title,
-          
         }));
         setCategories(fetchedCategories);
       } catch (error) {
@@ -64,7 +68,7 @@ export default function AddTouristSpot() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const newImages = Array.from(e.target.files);
-      setImages(prev => [...prev, ...newImages]);
+      setImages((prev) => [...prev, ...newImages]);
     }
   };
 
@@ -75,7 +79,7 @@ export default function AddTouristSpot() {
   };
 
   const removeImage = (index: number) => {
-    setImages(prev => prev.filter((_, i) => i !== index));
+    setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -87,7 +91,7 @@ export default function AddTouristSpot() {
     }
 
     try {
-      const loadingToast = toast.loading("A enviar dados...")
+      const loadingToast = toast.loading("A enviar dados...");
       const imageUrls = await Promise.all(
         images.map(async (image) => {
           const storageRef = ref(storage, `images/${image.name}`);
@@ -112,8 +116,8 @@ export default function AddTouristSpot() {
         videoUrl: videoUrl,
         location: {
           latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude)
-        }
+          longitude: parseFloat(longitude),
+        },
       };
 
       await addDataToFireStone(data);
@@ -122,9 +126,9 @@ export default function AddTouristSpot() {
       router.push("/home/pontos-turisticos");
     } catch (error) {
       console.error("Erro ao enviar os dados:", error);
-      toast.error("Erro ao enviar dados.")
+      toast.error("Erro ao enviar dados.");
     }
-  };  
+  };
 
   return (
     <main className="sm:ml-14 p-4 flex flex-col h-screen items-center space-y-5 md:px-8 xl:px-12">
@@ -132,7 +136,10 @@ export default function AddTouristSpot() {
         <CardHeader>
           <div className="flex flex-col justify-center sm:flex-row sm:items-center sm:justify-start gap-4">
             <Button variant="outline" className="cursor-pointer w-fit">
-              <Link className="flex space-x-1 items-center" href={"../pontos-turisticos"}>
+              <Link
+                className="flex space-x-1 items-center"
+                href={"../pontos-turisticos"}
+              >
                 <ChevronLeft className="size-4" />
                 <span>Voltar</span>
               </Link>
@@ -191,7 +198,9 @@ export default function AddTouristSpot() {
               </div>
 
               <div className="space-y-2 md:col-span-2">
-                <label className="text-sm font-medium">Descrição do local</label>
+                <label className="text-sm font-medium">
+                  Descrição do local
+                </label>
                 <Textarea
                   placeholder="Digite uma descrição detalhada do local"
                   className="min-h-[100px]"
@@ -217,7 +226,9 @@ export default function AddTouristSpot() {
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                  <p className="mt-2 text-sm text-gray-600">Clique para fazer upload das imagens</p>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Clique para fazer upload das imagens
+                  </p>
                   <p className="text-xs text-gray-500">PNG, JPG até 10MB</p>
                 </div>
                 <input
@@ -233,7 +244,12 @@ export default function AddTouristSpot() {
                     {images.map((img, index) => (
                       <div key={`image-${index}`} className="relative group">
                         <div className="aspect-square relative rounded-lg overflow-hidden">
-                          <Image src={URL.createObjectURL(img)} alt={`Preview ${index + 1}`} fill className="object-cover" />
+                          <Image
+                            src={URL.createObjectURL(img)}
+                            alt={`Preview ${index + 1}`}
+                            fill
+                            className="object-cover"
+                          />
                         </div>
                         <button
                           type="button"
@@ -251,13 +267,24 @@ export default function AddTouristSpot() {
               <div className="space-y-2 md:col-span-2">
                 <label className="text-sm font-medium">Áudio guia</label>
                 <div className="flex items-center space-x-4">
-                  <Input type="file" accept="audio/*" onChange={handleAudioUpload} />
-                  {audioFile && <span className="text-sm text-gray-600">{audioFile.name}</span>}
+                  <Input
+                    type="file"
+                    accept="audio/*"
+                    onChange={handleAudioUpload}
+                  />
+                  {audioFile && (
+                    <span className="text-sm text-gray-600">
+                      {audioFile.name}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
 
-            <Button type="submit" className="mt-8 mx-auto w-full max-w-[290px] flex">
+            <Button
+              type="submit"
+              className="mt-8 mx-auto w-full max-w-[290px] flex"
+            >
               Registrar local
             </Button>
           </form>

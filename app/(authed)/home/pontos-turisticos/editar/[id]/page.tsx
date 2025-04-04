@@ -4,13 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ChevronLeft, Upload, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { database, storage } from "@/lib/firebaseConfig";
-import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
@@ -36,7 +48,7 @@ interface TouristSpot {
 export default function EditTouristSpot() {
   const params = useParams();
   const spotId = params.id as string;
-  
+
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
@@ -52,14 +64,15 @@ export default function EditTouristSpot() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   console.log("spotId", spotId);
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch categories
-        const categoriesSnapshot = await getDocs(collection(database, "categories"));
-        const fetchedCategories = categoriesSnapshot.docs.map(doc => ({
+        const categoriesSnapshot = await getDocs(
+          collection(database, "categories")
+        );
+        const fetchedCategories = categoriesSnapshot.docs.map((doc) => ({
           id: doc.id,
           title: doc.data().title,
         }));
@@ -68,11 +81,11 @@ export default function EditTouristSpot() {
         // Fetch tourist spot data
         const spotDoc = await getDoc(doc(database, "touristSpots", spotId));
         console.log("spotDoc", spotDoc);
-        
+
         if (spotDoc.exists()) {
           const data = spotDoc.data() as TouristSpot;
           console.log("data", data);
-          
+
           setName(data.name);
           setCategory(data.category);
           setDescription(data.description);
@@ -98,7 +111,7 @@ export default function EditTouristSpot() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
-      setNewImages(prev => [...prev, ...files]);
+      setNewImages((prev) => [...prev, ...files]);
     }
   };
 
@@ -109,11 +122,11 @@ export default function EditTouristSpot() {
   };
 
   const removeExistingImage = (index: number) => {
-    setExistingImages(prev => prev.filter((_, i) => i !== index));
+    setExistingImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const removeNewImage = (index: number) => {
-    setNewImages(prev => prev.filter((_, i) => i !== index));
+    setNewImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -156,8 +169,8 @@ export default function EditTouristSpot() {
         videoUrl,
         location: {
           latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude)
-        }
+          longitude: parseFloat(longitude),
+        },
       };
 
       // Update document in Firestore
@@ -187,7 +200,10 @@ export default function EditTouristSpot() {
         <CardHeader>
           <div className="flex flex-col justify-center sm:flex-row sm:items-center sm:justify-start gap-4">
             <Button variant="outline" className="cursor-pointer w-fit">
-              <Link className="flex space-x-1 items-center" href="/home/pontos-turisticos">
+              <Link
+                className="flex space-x-1 items-center"
+                href="/home/pontos-turisticos"
+              >
                 <ChevronLeft className="size-4" />
                 <span>Voltar</span>
               </Link>
@@ -246,7 +262,9 @@ export default function EditTouristSpot() {
               </div>
 
               <div className="space-y-2 md:col-span-2">
-                <label className="text-sm font-medium">Descrição do local</label>
+                <label className="text-sm font-medium">
+                  Descrição do local
+                </label>
                 <Textarea
                   placeholder="Digite uma descrição detalhada do local"
                   className="min-h-[100px]"
@@ -266,13 +284,22 @@ export default function EditTouristSpot() {
               </div>
 
               <div className="space-y-2 md:col-span-2">
-                <label className="text-sm font-medium">Imagens existentes</label>
+                <label className="text-sm font-medium">
+                  Imagens existentes
+                </label>
                 {existingImages.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                     {existingImages.map((imgUrl, index) => (
-                      <div key={`existing-image-${index}`} className="relative group">
+                      <div
+                        key={`existing-image-${index}`}
+                        className="relative group"
+                      >
                         <div className="aspect-square relative rounded-lg overflow-hidden">
-                          <img src={imgUrl} alt={`Imagem ${index + 1}`} className="object-cover" />
+                          <img
+                            src={imgUrl}
+                            alt={`Imagem ${index + 1}`}
+                            className="object-cover"
+                          />
                         </div>
                         <button
                           type="button"
@@ -286,13 +313,17 @@ export default function EditTouristSpot() {
                   </div>
                 )}
 
-                <label className="text-sm font-medium mt-4 block">Adicionar novas imagens</label>
+                <label className="text-sm font-medium mt-4 block">
+                  Adicionar novas imagens
+                </label>
                 <div
                   className="border-2 border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50 transition-colors"
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                  <p className="mt-2 text-sm text-gray-600">Clique para fazer upload das imagens</p>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Clique para fazer upload das imagens
+                  </p>
                   <p className="text-xs text-gray-500">PNG, JPG até 10MB</p>
                 </div>
                 <input
@@ -306,9 +337,16 @@ export default function EditTouristSpot() {
                 {newImages.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                     {newImages.map((img, index) => (
-                      <div key={`new-image-${index}`} className="relative group">
+                      <div
+                        key={`new-image-${index}`}
+                        className="relative group"
+                      >
                         <div className="aspect-square relative rounded-lg overflow-hidden">
-                          <img src={URL.createObjectURL(img)} alt={`Nova imagem ${index + 1}`} className="object-cover" />
+                          <img
+                            src={URL.createObjectURL(img)}
+                            alt={`Nova imagem ${index + 1}`}
+                            className="object-cover"
+                          />
                         </div>
                         <button
                           type="button"
@@ -335,18 +373,25 @@ export default function EditTouristSpot() {
                   </div>
                 )}
                 <div className="flex items-center space-x-4">
-                  <Input 
-                    type="file" 
-                    accept="audio/*" 
+                  <Input
+                    type="file"
+                    accept="audio/*"
                     onChange={handleAudioUpload}
                     className="flex-1"
                   />
-                  {audioFile && <span className="text-sm text-gray-600">{audioFile.name}</span>}
+                  {audioFile && (
+                    <span className="text-sm text-gray-600">
+                      {audioFile.name}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
 
-            <Button type="submit" className="mt-8 mx-auto w-full max-w-[290px] flex">
+            <Button
+              type="submit"
+              className="mt-8 mx-auto w-full max-w-[290px] flex"
+            >
               Atualizar local
             </Button>
           </form>

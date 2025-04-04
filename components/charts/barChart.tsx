@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -7,10 +7,10 @@ import { ChartConfig, ChartContainer } from "../ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 interface ChartOverviewProps {
-    title: string
+  title: string;
 }
 
-export default function ChartOverview({title}: ChartOverviewProps) {
+export default function ChartOverview({ title }: ChartOverviewProps) {
   const chartData = [
     { month: "Sé do Porto", desktop: 186, mobile: 80 },
     { month: "Ponte Luís I", desktop: 305, mobile: 200 },

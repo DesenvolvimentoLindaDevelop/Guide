@@ -15,7 +15,13 @@ import {
 } from "@/components/ui/card";
 import { database } from "@/lib/firebaseConfig";
 import { collection, onSnapshot } from "firebase/firestore";
-import { AlignLeft, MapPin, MapPinCheck, MapPinPlusInside, Users } from "lucide-react";
+import {
+  AlignLeft,
+  MapPin,
+  MapPinCheck,
+  MapPinPlusInside,
+  Users,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 export default function AuthedHome() {

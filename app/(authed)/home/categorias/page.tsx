@@ -12,15 +12,18 @@ export default function CategoryPage() {
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(database, "categories"), (snapshot) => {
-      const updatedCategories: CategoryProps[] = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as CategoryProps[];
+    const unsubscribe = onSnapshot(
+      collection(database, "categories"),
+      (snapshot) => {
+        const updatedCategories: CategoryProps[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as CategoryProps[];
 
-      console.log("Atualizado:", updatedCategories);
-      setCategories(updatedCategories);
-    });
+        console.log("Atualizado:", updatedCategories);
+        setCategories(updatedCategories);
+      }
+    );
 
     return () => unsubscribe();
   }, []);

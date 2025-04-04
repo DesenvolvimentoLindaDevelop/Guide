@@ -1,6 +1,6 @@
 import React from "react";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
 import Link from "next/link";
 import { AlignLeft, Home, MapPin, PanelBottom, User, Users } from "lucide-react";
 import {
@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./ui/tooltip";
+} from "../ui/tooltip";
 
 export default function Sidebar() {
   return (
@@ -53,7 +53,9 @@ export default function Sidebar() {
               <TooltipContent side="right">Lugares</TooltipContent>
             </Tooltip>
 
-            <Tooltip>
+            {/* Commented users page*/}
+
+            {/* <Tooltip>
               <TooltipTrigger asChild>
                 <Link
                   href={"/home/usuarios"}
@@ -65,7 +67,7 @@ export default function Sidebar() {
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right">Usuários</TooltipContent>
-            </Tooltip>
+            </Tooltip> */}
 
             <Tooltip>
               <TooltipTrigger asChild>

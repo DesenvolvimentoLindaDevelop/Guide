@@ -18,7 +18,7 @@ interface TouristsSpotsProps {
   images: string[];
   location: {
     latitude: number;
-    longitute: number
+    longitute: number;
   };
   name: string;
   videoUrl: string;
@@ -29,15 +29,18 @@ export default function TouristsSpots() {
   const [spot, setSpot] = useState<TouristsSpotsProps[]>([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(database, "touristSpots"), (snapshot) => {
-      const updatedSpots: TouristsSpotsProps[] = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as TouristsSpotsProps[];
+    const unsubscribe = onSnapshot(
+      collection(database, "touristSpots"),
+      (snapshot) => {
+        const updatedSpots: TouristsSpotsProps[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as TouristsSpotsProps[];
 
-      console.log("Atualizado:", updatedSpots);
-      setSpot(updatedSpots);
-    });
+        console.log("Atualizado:", updatedSpots);
+        setSpot(updatedSpots);
+      }
+    );
 
     return () => unsubscribe();
   }, []);
@@ -49,11 +52,20 @@ export default function TouristsSpots() {
           <span>Voltar</span>
         </Link>
 
-        <h1 className="text-lg sm:text-2xl font-bold text-gray-800">Pontos turisticos registados</h1>
+        <h1 className="text-lg sm:text-2xl font-bold text-gray-800">
+          Pontos turisticos registados
+        </h1>
 
-        <Button onClick={() => setViewOption(!viewOption)} className="ml-auto transition-all">
+        <Button
+          onClick={() => setViewOption(!viewOption)}
+          className="ml-auto transition-all"
+        >
           Visualizar
-          {viewOption ? <Rows4 className="size-4"/> : <Columns2 className="size-4"/>}
+          {viewOption ? (
+            <Rows4 className="size-4" />
+          ) : (
+            <Columns2 className="size-4" />
+          )}
         </Button>
       </section>
 
@@ -68,7 +80,6 @@ export default function TouristsSpots() {
       {viewOption ? (
         <section className="">
           <TouristsSpotsCard />
-          
         </section>
       ) : (
         <section>

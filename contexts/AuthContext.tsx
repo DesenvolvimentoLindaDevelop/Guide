@@ -2,7 +2,11 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 type User = { uid: string; email: string | null };
@@ -37,11 +41,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     router.push("/");
   };
 
-  return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth deve ser usado dentro de um AuthProvider");
+  if (!context)
+    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
   return context;
 };

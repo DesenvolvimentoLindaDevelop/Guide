@@ -1,5 +1,5 @@
 import Image from "next/image";
-import UserAuth from "../components/user-auth";
+import UserAuth from "../components/userAuth";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LockKeyhole } from "lucide-react";
 
