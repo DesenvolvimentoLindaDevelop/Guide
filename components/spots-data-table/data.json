@@ -1,0 +1,103 @@
+[
+    {
+      "id": "1",
+      "name": "Torre dos Clérigos",
+      "description": "Uma das estruturas mais icônicas do Porto, oferecendo uma vista panorâmica incrível da cidade.",
+      "imagesUrl": "https://example.com/torre-dos-clerigos.jpg",
+      "audioUrl": "https://example.com/audio/torre-dos-clerigos.mp3",
+      "latitude": 41.1456,
+      "longitude": -8.6144,
+      "category": "Histórico"
+    },
+    {
+      "id": "2",
+      "name": "Livraria Lello",
+      "description": "Uma das livrarias mais bonitas do mundo, famosa pela sua arquitetura impressionante.",
+      "imagesUrl": "https://example.com/livraria-lello.jpg",
+      "audioUrl": "https://example.com/audio/livraria-lello.mp3",
+      "latitude": 41.1466,
+      "longitude": -8.6140,
+      "category": "Cultural"
+    },
+    {
+      "id": "3",
+      "name": "Ponte de D. Luís I",
+      "description": "Uma ponte metálica icônica que liga o Porto a Vila Nova de Gaia, com uma vista espetacular sobre o Rio Douro.",
+      "imagesUrl": "https://example.com/ponte-dom-luis.jpg",
+      "audioUrl": "https://example.com/audio/ponte-dom-luis.mp3",
+      "latitude": 41.1401,
+      "longitude": -8.6110,
+      "category": "Arquitetônico"
+    },
+    {
+      "id": "4",
+      "name": "Cais da Ribeira",
+      "description": "Um dos locais mais animados da cidade, repleto de restaurantes, bares e uma vista deslumbrante para o rio.",
+      "imagesUrl": "https://example.com/cais-da-ribeira.jpg",
+      "audioUrl": "https://example.com/audio/cais-da-ribeira.mp3",
+      "latitude": 41.1406,
+      "longitude": -8.6115,
+      "category": "Turístico"
+    },
+    {
+      "id": "5",
+      "name": "Estação de São Bento",
+      "description": "Uma estação de trem famosa pelos seus belos painéis de azulejos que retratam a história de Portugal.",
+      "imagesUrl": "https://example.com/estacao-sao-bento.jpg",
+      "audioUrl": "https://example.com/audio/estacao-sao-bento.mp3",
+      "latitude": 41.1450,
+      "longitude": -8.6102,
+      "category": "Histórico"
+    },
+    {
+      "id": "6",
+      "name": "Palácio da Bolsa",
+      "description": "Um edifício majestoso com um interior ricamente decorado, incluindo o famoso Salão Árabe.",
+      "imagesUrl": "https://example.com/palacio-da-bolsa.jpg",
+      "audioUrl": "https://example.com/audio/palacio-da-bolsa.mp3",
+      "latitude": 41.1411,
+      "longitude": -8.6153,
+      "category": "Cultural"
+    },
+    {
+      "id": "7",
+      "name": "Jardins do Palácio de Cristal",
+      "description": "Jardins lindíssimos com vistas incríveis para o Douro e um ótimo lugar para relaxar.",
+      "imagesUrl": "https://example.com/jardins-palacio-cristal.jpg",
+      "audioUrl": "https://example.com/audio/jardins-palacio-cristal.mp3",
+      "latitude": 41.1473,
+      "longitude": -8.6231,
+      "category": "Natural"
+    },
+    {
+      "id": "8",
+      "name": "Sé do Porto",
+      "description": "Uma das construções religiosas mais importantes da cidade, com uma vista panorâmica impressionante.",
+      "imagesUrl": "https://example.com/se-do-porto.jpg",
+      "audioUrl": "https://example.com/audio/se-do-porto.mp3",
+      "latitude": 41.1428,
+      "longitude": -8.6111,
+      "category": "Religioso"
+    },
+    {
+      "id": "9",
+      "name": "Casa da Música",
+      "description": "Uma sala de concertos moderna e inovadora, conhecida por sua arquitetura única.",
+      "imagesUrl": "https://example.com/casa-da-musica.jpg",
+      "audioUrl": "https://example.com/audio/casa-da-musica.mp3",
+      "latitude": 41.1579,
+      "longitude": -8.6291,
+      "category": "Cultural"
+    },
+    {
+      "id": "10",
+      "name": "Museu de Serralves",
+      "description": "Um museu de arte contemporânea rodeado por um lindo parque com esculturas e áreas verdes.",
+      "imagesUrl": "https://example.com/museu-serralves.jpg",
+      "audioUrl": "https://example.com/audio/museu-serralves.mp3",
+      "latitude": 41.1592,
+      "longitude": -8.6569,
+      "category": "Cultural"
+    }
+  ]
+  

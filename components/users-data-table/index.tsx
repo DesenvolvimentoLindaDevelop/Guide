@@ -53,12 +53,12 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:mt-4 gap-4">
         <Link className="flex space-x-1 items-center " href={"/home"}>
           <ChevronLeft className="size-4" />
           <span>Voltar</span>
         </Link>
-        <h2 className="text-lg sm:text-xl font-medium text-gray-800">
+        <h2 className="text-lg sm:text-2xl font-bold text-gray-800">
           Lista de usuários cadastrados
         </h2>
       </div>

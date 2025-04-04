@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../../globals.css";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "@/components/sidebar";
-import { AuthProvider } from "@/contexts/AuthContext";
+import AuthGuard from "@/components/authGuard/AuthGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,21 +20,15 @@ export const metadata: Metadata = {
   description: "Guide",
 };
 
-export default function RootLayout({
+export default function AuthedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
-        >
-          <ToastContainer />
-          {children}
-        </body>
-      </html>
-    </AuthProvider>
+    <AuthGuard>
+      <Sidebar />
+      {children}
+    </AuthGuard>
   );
 }

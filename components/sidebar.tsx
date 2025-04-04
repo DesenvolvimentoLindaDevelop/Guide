@@ -2,7 +2,7 @@ import React from "react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { Home, MapPin, PanelBottom, User, Users } from "lucide-react";
+import { AlignLeft, Home, MapPin, PanelBottom, User, Users } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -65,6 +65,20 @@ export default function Sidebar() {
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="right">Usuários</TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  href={"/home/categorias"}
+                  className="flex size-9 shrink-0 items-center justify-center text-muted-foreground
+                    rounded-lg transition-colors hover:text-foreground"
+                >
+                  <AlignLeft className="size-4" />
+                  <span className="sr-only">Categorias</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Categorias</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </nav>
