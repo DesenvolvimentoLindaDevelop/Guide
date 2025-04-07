@@ -42,7 +42,7 @@ export default function AuthedHome() {
     );
 
     const unsubscribeTouristSpots = onSnapshot(
-      collection(database, "touristSpots"),
+      collection(database, "tourist-spot"),
       (snapshot) => {
         const updatedSpots: TouristsSpotsProps[] = snapshot.docs.map((doc) => ({
           id: doc.id,

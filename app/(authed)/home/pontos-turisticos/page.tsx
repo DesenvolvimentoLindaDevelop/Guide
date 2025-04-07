@@ -30,7 +30,7 @@ export default function TouristsSpots() {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      collection(database, "touristSpots"),
+      collection(database, "tourist-spot"),
       (snapshot) => {
         const updatedSpots: TouristsSpotsProps[] = snapshot.docs.map((doc) => ({
           id: doc.id,

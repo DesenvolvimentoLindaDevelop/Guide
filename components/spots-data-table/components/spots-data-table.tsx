@@ -41,7 +41,7 @@ export default function SpotsDataTable({spots}: Props) {
     if (!id) return;
     
     try {
-      await deleteDoc(doc(database, "touristSpots", id));
+      await deleteDoc(doc(database, "tourist-spot", id));
       toast.success("Ponto turístico deletado com sucesso!");
     } catch (error) {
       console.error("Erro ao deletar Ponto turístico:", error);

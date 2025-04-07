@@ -79,7 +79,7 @@ export default function EditTouristSpot() {
         setCategories(fetchedCategories);
 
         // Fetch tourist spot data
-        const spotDoc = await getDoc(doc(database, "touristSpots", spotId));
+        const spotDoc = await getDoc(doc(database, "tourist-spot", spotId));
         console.log("spotDoc", spotDoc);
 
         if (spotDoc.exists()) {
@@ -174,7 +174,7 @@ export default function EditTouristSpot() {
       };
 
       // Update document in Firestore
-      const docRef = doc(database, "touristSpots", spotId);
+      const docRef = doc(database, "tourist-spot", spotId);
       await updateDoc(docRef, data);
 
       toast.dismiss(loadingToast);

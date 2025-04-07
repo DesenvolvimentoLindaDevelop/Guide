@@ -55,7 +55,7 @@ export default function TouristsSpotsCard() {
     const fetchTouristSpots = async () => {
       try {
         const querySnapshot = await getDocs(
-          collection(database, "touristSpots")
+          collection(database, "tourist-spot")
         );
         const spots: TouristSpot[] = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -76,7 +76,7 @@ export default function TouristsSpotsCard() {
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteDoc(doc(database, "touristSpots", id));
+      await deleteDoc(doc(database, "tourist-spot", id));
       setTouristSpots((spots) => spots.filter((spot) => spot.id !== id));
       toast.success("Ponto turístico excluído com sucesso!");
     } catch (error) {

@@ -28,7 +28,7 @@ interface Category {
 
 async function addDataToFireStone(data: any) {
   try {
-    const docRef = await addDoc(collection(database, "touristSpots"), data);
+    const docRef = await addDoc(collection(database, "tourist-spot"), data);
     console.log("Documento salvo com ID:", docRef.id);
   } catch (error) {
     console.error("Erro ao salvar no Firestore:", error);
