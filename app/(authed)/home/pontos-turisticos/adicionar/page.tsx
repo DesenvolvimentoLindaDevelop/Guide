@@ -84,48 +84,43 @@ export default function AddTouristSpot() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!name || !category || !description || !latitude || !longitude) {
       alert("Preencha todos os campos obrigatórios.");
       return;
     }
-
+  
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("videoUrl", videoUrl || "");
+    formData.append("latitude", latitude);
+    formData.append("longitude", longitude);
+  
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
+  
+    if (audioFile) {
+      formData.append("audio", audioFile);
+    }
+  
     try {
-      const loadingToast = toast.loading("A enviar dados...");
-      const imageUrls = await Promise.all(
-        images.map(async (image) => {
-          const storageRef = ref(storage, `images/${image.name}`);
-          await uploadBytes(storageRef, image);
-          return getDownloadURL(storageRef);
-        })
-      );
-
-      let audioUrl = "";
-      if (audioFile) {
-        const audioRef = ref(storage, `audios/${audioFile.name}`);
-        await uploadBytes(audioRef, audioFile);
-        audioUrl = await getDownloadURL(audioRef);
-      }
-
-      const data = {
-        name,
-        category,
-        description,
-        images: imageUrls,
-        audio: audioUrl,
-        videoUrl: videoUrl,
-        location: {
-          latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude),
-        },
-      };
-
-      await addDataToFireStone(data);
-      toast.dismiss(loadingToast);
-      toast.success("Enviado com sucesso!");
+      const toastId = toast.loading("A enviar dados...");
+  
+      const res = await fetch("/api/spots", {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (!res.ok) throw new Error("Erro ao enviar dados");
+  
+      toast.dismiss(toastId);
+      toast.success("Ponto turístico criado com sucesso!");
       router.push("/home/pontos-turisticos");
-    } catch (error) {
-      console.error("Erro ao enviar os dados:", error);
+    } catch (err) {
+      console.error("Erro no envio:", err);
       toast.error("Erro ao enviar dados.");
     }
   };
