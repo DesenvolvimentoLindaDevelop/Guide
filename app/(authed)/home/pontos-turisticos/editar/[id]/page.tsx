@@ -143,61 +143,18 @@ export default function EditTouristSpot() {
       // Upload new images if any
       const newImageUrls = await Promise.all(
         newImages.map(async (image) => {
-          // Generate a unique filename to avoid conflicts
-          const timestamp = Date.now();
-          const randomString = Math.random().toString(36).substring(2, 8);
-          const filename = `${timestamp}${randomString}${image.name}`;
-
-          // Create storage reference with the unique filename
-          const storageRef = ref(storage, `images/${filename}`);
-
-          // Set metadata including content type
-          const metadata = {
-            contentType: image.type,
-            customMetadata: {
-              'origin': 'guide-eight-taupe.vercel.app'
-            }
-          };
-
-          try {
-            // Upload with metadata
-            await uploadBytes(storageRef, image, metadata);
-            // Get download URL
-            return getDownloadURL(storageRef);
-          } catch (error) {
-            console.error("Error uploading image:", error);
-            throw error;
-          }
+          const storageRef = ref(storage, `images/${image.name}`);
+          await uploadBytes(storageRef, image);
+          return getDownloadURL(storageRef);
         })
       );
 
       // Handle audio update if new file is selected
       let audioUrl = existingAudioUrl;
       if (audioFile) {
-        try {
-          // Generate a unique filename to avoid conflicts
-          const timestamp = Date.now();
-          const randomString = Math.random().toString(36).substring(2, 8);
-          const filename = `${timestamp}${randomString}${audioFile.name}`;
-
-          // Create storage reference with the unique filename
-          const audioRef = ref(storage, `audios/${filename}`);
-
-          // Set metadata including content type
-          const metadata = {
-            contentType: audioFile.type,
-            customMetadata: {
-              'origin': 'guide-eight-taupe.vercel.app'
-            }
-          };
-
-          // Upload with metadata
-          await uploadBytes(audioRef, audioFile, metadata);
-          audioUrl = await getDownloadURL(audioRef);
-        } catch (error) {
-          console.error("Error uploading audio:", error);
-          throw error;
-        }
+        const audioRef = ref(storage, `audios/${audioFile.name}`);
+        await uploadBytes(audioRef, audioFile);
+        audioUrl = await getDownloadURL(audioRef);
       }
 
       // Combine existing and new image URLs
