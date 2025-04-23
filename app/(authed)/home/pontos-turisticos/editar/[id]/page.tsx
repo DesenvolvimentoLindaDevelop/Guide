@@ -54,7 +54,7 @@ export default function EditTouristSpot() {
   const [description, setDescription] = useState("");
   const [existingImages, setExistingImages] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<File[]>([]);
-  const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [audioUrl, setAudioUrl] = useState("");
   const [existingAudioUrl, setExistingAudioUrl] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -115,12 +115,6 @@ export default function EditTouristSpot() {
     }
   };
 
-  const handleAudioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      setAudioFile(e.target.files[0]);
-    }
-  };
-
   const removeExistingImage = (index: number) => {
     setExistingImages((prev) => prev.filter((_, i) => i !== index));
   };
@@ -149,15 +143,6 @@ export default function EditTouristSpot() {
         })
       );
 
-      // Handle audio update if new file is selected
-      let audioUrl = existingAudioUrl;
-      if (audioFile) {
-        const audioRef = ref(storage, `audios/${audioFile.name}`);
-        await uploadBytes(audioRef, audioFile);
-        audioUrl = await getDownloadURL(audioRef);
-      }
-
-      // Combine existing and new image URLs
       const allImages = [...existingImages, ...newImageUrls];
 
       const data = {
@@ -374,16 +359,11 @@ export default function EditTouristSpot() {
                 )}
                 <div className="flex items-center space-x-4">
                   <Input
-                    type="file"
-                    accept="audio/*"
-                    onChange={handleAudioUpload}
+                    type="url"
+                    value={audioUrl}
+                    onChange={(e) => setAudioUrl(e.target.value)}
                     className="flex-1"
                   />
-                  {audioFile && (
-                    <span className="text-sm text-gray-600">
-                      {audioFile.name}
-                    </span>
-                  )}
                 </div>
               </div>
             </div>

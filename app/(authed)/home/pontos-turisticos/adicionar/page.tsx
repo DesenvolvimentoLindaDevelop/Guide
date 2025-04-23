@@ -40,13 +40,13 @@ export default function AddTouristSpot() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState<File[]>([]);
-  const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [audioUrl, setAudioUrl] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+  const router = useRouter();  
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -72,11 +72,6 @@ export default function AddTouristSpot() {
     }
   };
 
-  const handleAudioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      setAudioFile(e.target.files[0]);
-    }
-  };
 
   const removeImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
@@ -97,15 +92,11 @@ export default function AddTouristSpot() {
     formData.append("videoUrl", videoUrl || "");
     formData.append("latitude", latitude);
     formData.append("longitude", longitude);
+    formData.append("audio", audioUrl);
   
     images.forEach((image) => {
       formData.append("images", image);
     });
-  
-    if (audioFile) {
-      formData.append("audio", audioFile);
-    }
-  
     try {
       const toastId = toast.loading("A enviar dados...");
   
@@ -263,15 +254,10 @@ export default function AddTouristSpot() {
                 <label className="text-sm font-medium">Áudio guia</label>
                 <div className="flex items-center space-x-4">
                   <Input
-                    type="file"
-                    accept="audio/*"
-                    onChange={handleAudioUpload}
+                    type="url"
+                    placeholder="URL do áudio guia"
+                    onChange={(e) => setAudioUrl(e.target.value)}
                   />
-                  {audioFile && (
-                    <span className="text-sm text-gray-600">
-                      {audioFile.name}
-                    </span>
-                  )}
                 </div>
               </div>
             </div>
