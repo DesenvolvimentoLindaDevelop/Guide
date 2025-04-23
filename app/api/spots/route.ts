@@ -27,6 +27,19 @@ const bucket = getStorage().bucket(
   process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!
 );
 
+const streamToBuffer = async (reader: ReadableStreamDefaultReader): Promise<Buffer> => {
+  const chunks: Uint8Array[] = [];
+  let done = false;
+  while (!done) {
+    const { value, done: readerDone } = await reader.read();
+    done = readerDone;
+    if (value) {
+      chunks.push(value);
+    }
+  }
+  return Buffer.concat(chunks);
+};
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -45,10 +58,12 @@ export async function POST(request: NextRequest) {
       images.map(async (image) => {
         const ext = path.extname(image.name);
         const fileName = `images/${randomUUID()}${ext}`;
-        const fileBuffer = Buffer.from(await image.arrayBuffer());
+        
+        const imageReader = image.stream().getReader();
+        const imageBuffer = await streamToBuffer(imageReader);
 
         const fileRef = bucket.file(fileName);
-        await fileRef.save(fileBuffer, {
+        await fileRef.save(imageBuffer, {
           contentType: image.type,
         });
 
@@ -60,16 +75,18 @@ export async function POST(request: NextRequest) {
     if (audio) {
       const ext = path.extname(audio.name);
       const fileName = `audios/${randomUUID()}${ext}`;
-      const fileBuffer = Buffer.from(await audio.arrayBuffer());
+      
+      const audioReader = audio.stream().getReader();
+      const audioBuffer = await streamToBuffer(audioReader);
 
       const fileRef = bucket.file(fileName);
-      await fileRef.save(fileBuffer, {
+      await fileRef.save(audioBuffer, {
         contentType: audio.type,
       });
 
       audioUrl = fileRef.publicUrl();
     }
-
+    
     const docRef = await db.collection("tourist-spot").add({
       name,
       category,
