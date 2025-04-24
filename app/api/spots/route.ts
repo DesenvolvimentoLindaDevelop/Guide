@@ -7,20 +7,20 @@ import { v4 as uuidv4 } from "uuid";
 import path from "path";
 
 const serviceAccount = {
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  clientEmail: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL,
-  privateKey: process.env.NEXT_PUBLIC_FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
 };
 
 if (!getApps().length) {
   initializeApp({
     credential: cert(serviceAccount),
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   });
 }
 
 const db = getFirestore();
-const bucket = getStorage().bucket(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!);
+const bucket = getStorage().bucket(process.env.FIREBASE_STORAGE_BUCKET!);
 
 const streamToBuffer = async (reader: ReadableStreamDefaultReader): Promise<Buffer> => {
   const chunks: Uint8Array[] = [];
